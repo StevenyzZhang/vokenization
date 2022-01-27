@@ -3,7 +3,10 @@ from torch import nn
 import torchvision.models as models
 from transformers import *
 
-from .frozen_batch_norm import FrozenBatchNorm2d
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from xmatching.frozen_batch_norm import FrozenBatchNorm2d
 
 
 LANG_MODELS = {

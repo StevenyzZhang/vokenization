@@ -1,0 +1,38 @@
+Use port 9595
+Use gpus  [0, 1, 2, 3]
+-------- Load Data -------
+Load tokens from data/wiki103-cased/wiki.train.raw.bert-base-uncased.hdf5
+Load vokens from snap/xmatching/bert_resnext/vokens/wiki.train.raw.vg_nococo.hdf5
+	 with voken size 50000
+	 top 5 voken ids are: ['vg_nococo/1', 'vg_nococo/2', 'vg_nococo/3', 'vg_nococo/4', 'vg_nococo/5']
+Split sent with block size 126
+Total batches: 887168
+Total tokens: 111783195
+Total vokens: 111783195
+
+-------- Load Data -------
+Load tokens from data/wiki103-cased/wiki.valid.raw.bert-base-uncased.hdf5
+Load vokens from snap/xmatching/bert_resnext/vokens/wiki.valid.raw.vg_nococo.hdf5
+	 with voken size 50000
+	 top 5 voken ids are: ['vg_nococo/1', 'vg_nococo/2', 'vg_nococo/3', 'vg_nococo/4', 'vg_nococo/5']
+Split sent with block size 126
+Total batches: 1858
+Total tokens: 234173
+Total vokens: 234173
+
+Model: do voken cls -- True, do_voken_reg -- False, do voken ctr -- False
+VLM Classification Head: Build model with voken_size 50000
+Optimized with lr: 0.0002, total steps: 138600.0, warmup steps: 10000, epsilon 1e-06, beta: (0.9, 0.999), weight decay 0.01.
+Data Loader: data iteration 0, with range 0 to 126.
+Data Loader: data iteration 1, with range 504 to 630.
+Data Loader: data iteration 2, with range 1008 to 1134.
+Data Loader: data iteration 3, with range 1512 to 1638.
+Data Loader: data iteration 4, with range 2016 to 2142.
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])
+torch.Size([32, 128])

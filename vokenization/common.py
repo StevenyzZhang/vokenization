@@ -2,12 +2,12 @@ import os
 
 # Name of image sets
 IMAGE_SETS = [
-    'coco_train',
-    'coco_nominival',
-    'coco_minival',
+    #'coco_train',
+    #'coco_nominival',
+    #'coco_minival',
     'vg_nococo',
-    'cc_train',
-    'cc_valid',
+    #'cc_train',
+    #'cc_valid',
 ]
 
 # Root of each dataset

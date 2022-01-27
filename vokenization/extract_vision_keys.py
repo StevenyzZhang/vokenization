@@ -252,9 +252,10 @@ if __name__ == "__main__":
         # Load the model
         if os.path.exists(args.load_dir + '/BEST.pth.model'):
             print("Load model from %s." % (args.load_dir + '/BEST.pth.model'))
-            sys.path.append(args.load_dir + '/src')
-            for dirc in os.listdir(args.load_dir + '/src'):
-                sys.path.append(args.load_dir + '/src/' + dirc)
+            # ZYZ
+            sys.path.append('./xmatching')
+            # for dirc in os.listdir(args.load_dir + '/src'):
+                # sys.path.append(args.load_dir + '/src/' + dirc)
             # import model        # The pickle has some issues... thus must load the library
             joint_model = torch.load(args.load_dir + '/BEST.pth.model')
             joint_model.eval()            # DO NOT FORGET THIS!!!

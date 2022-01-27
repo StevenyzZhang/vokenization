@@ -327,10 +327,26 @@ default_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 
 def load_model_and_tokenizer(load, cpu=False):
+    
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from xmatching.model import LangModel, VisnModel, JointModel
+
+    lang_layers = '4,3,2,1'
+    dim = 64
+    lang = 'bert'
+    visn = 'resnext101_32x8d'
+    
+    # Models
+    lang_layers = list(map(lambda x: -int(x), lang_layers.split(',')))     # The layers concated as the output.
+    lang_model = LangModel(dim, arch=lang, layers=lang_layers)
+    visn_model = VisnModel(dim, arch=visn)
+    # The use of joint model would help synchronization in distributed learning.
+    model = JointModel(lang_model, visn_model)
+
     if os.path.exists(load + '/BEST.pth.model'):
-        sys.path.append(load + '/src')
-        for dirc in os.listdir(load + '/src'):
-            sys.path.append(load + '/src/' + dirc)
+        sys.path.append('./xmatching')
+        # for dirc in os.listdir(load + '/src'):
+            # sys.path.append(load + '/src/' + dirc)
         # import model  # The pickle has some issues... thus must load the library
         if cpu:
             device = torch.device('cpu')
@@ -338,6 +354,10 @@ def load_model_and_tokenizer(load, cpu=False):
                                      map_location=device)
         else:
             joint_model = torch.load(load + '/BEST.pth.model')
+        # ZYZ: We need the init of language model
+        model.lang_model.load_state_dict(joint_model.lang_model.state_dict())
+        joint_model.lang_model = model.lang_model
+        joint_model.cuda()
         joint_model.eval()  # DO NOT FORGET THIS!!!
     else:
         print("No snapshots there, exit.")
